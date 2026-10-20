@@ -1,0 +1,19 @@
+name: Translations report
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # every Monday at 06:00 UTC
+  workflow_dispatch: # and a "Run workflow" button in the Actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  locale-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: Mohamed-Almarag/locale-guard@v1
+        with:
+          files: i18n/locales/{locale}.json
+          format: '@nuxtjs/i18n'
